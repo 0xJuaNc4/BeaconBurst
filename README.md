@@ -1,5 +1,5 @@
 # BeaconBurst
-Script en Bash el cual simplifica y automatiza la inyección de paquetes Beacon en una red inalámbrica, de cara a realizar el ataque Beacon Flooding Attack en redes WPA-WPA2 (PSK) con el objetivo de realizar un DoS en la red.
+Script en Bash que automatiza el Ataque Beacon Flooding en Redes WPA-WPA2 (PSK) destinado a realizar un DoS en la red. 
 
 ## Requisitos
 
