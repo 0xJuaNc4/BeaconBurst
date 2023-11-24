@@ -16,6 +16,7 @@ trap ctrl_c INT
 stty -ctlecho
 function ctrl_c(){
     echo -e "\n${CYAN}[*]${RESET} Saliendo...\n"
+    airmon-ng stop {intefaz de red} && service wpa_supplicant start && service network-manager restart &> /dev/null
     exit 0
 }
 
