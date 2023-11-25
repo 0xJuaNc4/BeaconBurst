@@ -1,16 +1,12 @@
 # BeaconBurst
-Script en Bash que automatiza el Ataque Beacon Flooding en Redes WPA-WPA2 (PSK) destinado a realizar un DoS en la red. 
+Script en Bash que automatiza el ataque Beacon Flooding en redes WiFi. El ataque se lleva a cabo utilizando la herramienta mdk3 y se implementa con el objetivo de realizar un DoS en la red objetivo.
 
 ## Requisitos
 
-1. Asegúrate de tener permisos root para la ejecución del script.
-```
-id -u
-```
-2. Asegurate de tener la tarjeta de red en modo monitor. Sino es así el script lo hará en su defecto
-```
-iwconfig
-```
+1. Permisos root para la ejecución del script.
+2. Tarjeta de red en modo monitor.
+3. Herramientas necesarias instaladas: (iw, airmon-ng, airodump-ng, mdk3, xterm)
+
 
 ## Uso
 
@@ -26,3 +22,14 @@ cd BeaconBurst
 ```
 chmod +x beaconburst.sh
 ```
+4. Antes de ejecutar el script, asegúrate de que tu interfaz de red inalámbrica esté configurada en modo monitor.
+```
+airmon-ng start <interfaz>
+```
+5. Ejecuta el script con permisos de superusuario (root)
+```
+sudo ./beaconburst.sh
+```
+## Ejemplo de uso
+
+1. Descargar el contenido del repositorio
