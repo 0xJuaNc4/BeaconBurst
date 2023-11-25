@@ -30,6 +30,3 @@ airmon-ng start <interfaz>
 ```
 sudo ./beaconburst.sh
 ```
-## Ejemplo de uso
-
-1. Descargar el contenido del repositorio
