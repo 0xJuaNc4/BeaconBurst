@@ -38,7 +38,7 @@ banner(){
 # Comprobar si están instaladas las herramientas necesarias
 check_tools(){
     tools=("iw" "airmon-ng" "airodump-ng" "mdk3" "xterm")
-    echo -e "\n${CYAN}Comprobando herramientas necesarias${RESET}\n"
+    echo -e "\n${CYAN}[*]${RESET} Comprobando herramientas necesarias...\n"
     for tool in "${tools[@]}"; do
         if command -v $tool &> /dev/null; then
             echo -e "$tool....${GREEN}ok${RESET}"
@@ -52,7 +52,7 @@ check_tools(){
 
 # Listar interfaces de red disponibles
 select_interface(){
-    echo -e "\n${CYAN}Interfaces de red inalámbricas disponibles:${RESET}\n"
+    echo -e "\n${CYAN}[*]${RESET} Interfaces de red inalámbricas disponibles:\n"
     iw dev | grep Interface | awk '{print $2}'
     echo -n -e "\n${CYAN}Selecciona la interfaz con la que deseas trabajar >${RESET} "
     read interface
@@ -63,7 +63,7 @@ select_interface(){
         echo -e "\n\n${CYAN}[*]${RESET} Comprobando modo monitor en ${YELLOW}$interface${RESET}\n"
         sleep 1
         if ! iwconfig $interface | grep "Mode:Monitor" &> /dev/null; then
-            echo -e "\n${RED}[!]${RESET} La interfaz ${YELLOW}$interface${RESET} no se encuentra en modo monitor\n"
+            echo -e "\n${RED}[!]${RESET} La interfaz ${YELLOW}$interface${RESET} no se encuentra en modo monitor, activalo para continuar...\n"
             exit 1
         else
             echo -e "\n${GREEN}[*]${RESET} Modo monitor activado en ${YELLOW}$interface${RESET}, continuando...\n"
@@ -93,11 +93,11 @@ net_scan(){
     echo -n -e "\n${CYAN}¿Deseas continuar con el escaneo de redes? ${YELLOW}(s/n)${RESET} >${RESET} "
     read option_choose
     if [[ "${option_choose,,}" == "s" ]]; then
-        echo -e "\n\n${GREEN}Iniciando el escaneo de redes...${RESET}\n"
+        echo -e "\n\n${GREEN}[*]${RESET} Iniciando el escaneo de redes...\n"
         sleep 1
         clear
         banner
-        echo -e "\n${YELLOW}[*] Escaneo de redes en curso${RESET}\n"
+        echo -e "\n${YELLOW}[*]${RESET} Escaneo de redes en curso...\n"
         xterm -geometry 120x40 -e "airodump-ng ${interface} --output-format csv -w output"
         xterm_pid=$!
         wait "$xterm_pid"
