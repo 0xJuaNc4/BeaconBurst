@@ -6,7 +6,7 @@
 
 <br>
 
-Script en Bash que automatiza el ataque Beacon Flooding en redes WiFi. El ataque se lleva a cabo utilizando la herramienta mdk3 y se implementa con el objetivo de realizar un DoS en la red objetivo.
+Script en Bash que automatiza el ataque Beacon Flooding en redes WiFi. El ataque se lleva a cabo utilizando la herramienta mdk3 y se implementa con el objetivo de inundar la red atacada con frames Beacon falsos, causando interrupciones y posibles efectos de denegación de servicio (DoS).
 
 ## Requisitos
 
