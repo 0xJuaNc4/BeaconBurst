@@ -52,8 +52,15 @@ check_tools(){
 
 # Listar interfaces de red disponibles
 select_interface(){
+    echo -e "\n${CYAN}[*]${RESET} Comenzando...\n"
+    sleep 1
     echo -e "\n${CYAN}[*]${RESET} Interfaces de red inalámbricas disponibles:\n"
-    iw dev | grep Interface | awk '{print $2}'
+    interfaces=$(iw dev | grep Interface | awk '{print $2}')
+    counter=1
+    for interface in $interfaces; do
+        echo -e "${YELLOW}${counter}.${RESET} ${interface}"
+        ((counter++))
+    done
     echo -n -e "\n${CYAN}Selecciona la interfaz con la que deseas trabajar >${RESET} "
     read interface
     if ! ifconfig "${interface}" &> /dev/null; then
