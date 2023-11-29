@@ -15,7 +15,7 @@ clear
 trap ctrl_c INT
 stty -ctlecho
 function ctrl_c(){
-    echo -e "\n${CYAN}[*]${RESET} Saliendo...\n"
+    echo -e "\n${RED}[!]${RESET} Saliendo...\n"
     if [[ -n "$xterm_pid" && -d "/proc/$xterm_pid" ]]; then
         kill "$xterm_pid"
     fi
