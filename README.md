@@ -19,7 +19,7 @@ Script en Bash que automatiza el ataque Beacon Flooding en redes WiFi. El ataque
 
 1. Clona el repositorio o en su defecto descarga el script beaconburst.sh
 ```
-git clone https://github.com/0xJuaNc4/BeaconBurst.git
+git clone https://github.com/0xJuaNc4/BeaconBurst
 ```
 2. Cambia al directorio del script.
 ```
