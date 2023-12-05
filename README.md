@@ -6,73 +6,73 @@
 
 <br>
 
-Script en Bash que automatiza el ataque Beacon Flooding en redes WiFi. El ataque se lleva a cabo utilizando la herramienta mdk3 y se implementa con el objetivo de inundar la red atacada con frames Beacon falsos, causando interrupciones y posibles efectos de denegación de servicio (DoS).
+Bash script that automates the Beacon Flooding attack on WiFi networks. The attack is carried out using the mdk3 tool and is implemented with the aim of flooding the attacked network with fake Beacon frames, causing outages and possible denial of service (DoS) effects.
 
-## Requisitos
+## Requirements
 
-1. Permisos root para la ejecución del script.
-2. Tarjeta de red en modo monitor.
-3. Herramientas necesarias instaladas: (iw, airmon-ng, airodump-ng, mdk3, xterm)
+1. Root permissions for the execution of the script.
+2. Network card in monitor mode.
+3. Necessary tools installed: (iw, airmon-ng, airodump-ng, mdk3, xterm).
 
 
 ## Uso
 
-1. Clona el repositorio o en su defecto descarga el script beaconburst.sh
+1. Clone the repository or otherwise download the beaconburst.sh script.
 ```
 git clone https://github.com/0xJuaNc4/BeaconBurst
 ```
-2. Cambia al directorio del script.
+2. Change to the script directory.
 ```
 cd BeaconBurst
 ```
-3. Otorga permisos de ejecución al script.
+3. Set execution permissions to the script.
 ```
 chmod +x beaconburst.sh
 ```
-4. Antes de ejecutar el script, asegúrate de que tu interfaz de red inalámbrica esté configurada en modo monitor.
+4. Before running the script, make sure that your wireless network interface is set to monitor mode.
 ```
 airmon-ng start <interfaz>
 ```
-5. Ejecuta el script con permisos de superusuario (root)
+5. Execute the script with root permissions.
 ```
 sudo ./beaconburst.sh
 ```
-## Ejemplo de uso
+## Usage example
 
-Antes de iniciar el ataque, se realiza una comprobación para asegurarse de que las herramientas necesarias para llevar el ataque acabo estén instaladas en el sistema.
+Before starting the attack, a check is made to ensure that the tools necessary to carry out the attack are installed on the system.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/d32b00f3-5850-4ef6-8e3a-c74c3d9e1f5e)
 
-Se procede a listar las interfaces de red inalámbricas disponibles. Deberás seleccionar la interfaz que ya esté configurará previamente en modo monitor para llevar a cabo el ataque.
+The available wireless network interfaces are listed. You must select the interface that is already configured in monitor mode to carry out the attack.
 
 <div align="center">
 <img src="https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/beed607d-cbbd-46f5-9358-8f6bee2dca79)">  
 </div>
 
-Verificará si la interfaz seleccionada existe y está configurada en modo monitor. Si no lo está, te pedirá que la actives antes de continuar.
+It will check if the selected interface exists and is configured in monitor mode. If it is not, it will ask you to activate it before continuing.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/3295c275-0033-4adc-9627-8018e0f36362)
 
-Una vez que la interfaz esté configurada y seleccionada correctamente, se solicitará una confirmación al usuario para continuar con el escaneo de redes WiFi disponibles.
+Once the interface is correctly configured and selected, the user will be prompted for confirmation to continue scanning for available WiFi networks.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/ba6decf3-be36-48fc-ada1-19516d5de35e)
 
-Se abrirá una terminal paralela para realizar el escaneo de redes. Puedes cerrar esta ventana o pulsar `Ctrl+C` en cualquier momento para detener el escaneo.
+A parallel terminal will open to perform the network scan. You can close this window or press `Ctrl+C` at any time to stop the scan.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/004a94dc-b63e-45f1-a16c-a6bbac280b1e)
 
-Una vez finalizado el escaneo, se mostrará una tabla con las redes disponibles, incluyendo información como BSSID, ESSID, Canal, debes seleccionar la red objetivo
+Once the scan is finished, a table with the available networks will be displayed, including information such as BSSID, ESSID, Channel, you must select the target network.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/cb2ab0ca-4952-427a-b316-0f8a00425c86)
 
-Una vez seleccionada la red se creará en segundo plano un diccionario para el ataque.
+Once the network is selected, a dictionary for the attack will be created in the background.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/a5fb25cb-cb0c-4aee-8d1c-c452ce565b3e)
 
-Una vez en este punto, el ataque comenzará automáticamente. Para detenerlo, utilizamos `Ctrl + C`.
+Once at this point, the attack will start automatically. To stop it, use `Ctrl + C`.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/563365ec-6fb9-4abb-9d54-d4ff2f981002)
 
-Puedes usar `airodump-ng` para verificar la actividad del ataque aplicando filtros de red y canal.
+You can use `airodump-ng` to verify attack activity by applying network and channel filters.
 
 ![image](https://github.com/0xJuaNc4/BeaconBurst/assets/130152767/9949a2d6-154a-44a8-acc0-d9cccbec744c)
