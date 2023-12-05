@@ -96,9 +96,9 @@ show_table(){
 
 # Scanning WIFI networks
 net_scan(){
-    echo -n -e "\n${CYAN}Do you wish to continue with the network scan? ${YELLOW}(s/n)${RESET} >${RESET} "
+    echo -n -e "\n${CYAN}Do you wish to continue with the network scan? ${YELLOW}(y/n)${RESET} >${RESET} "
     read option_choose
-    if [[ "${option_choose,,}" == "s" ]]; then
+    if [[ "${option_choose,,}" == "y" ]]; then
         echo -e "\n\n${GREEN}[*]${RESET} Starting the network scan...\n"
         sleep 1
         clear
