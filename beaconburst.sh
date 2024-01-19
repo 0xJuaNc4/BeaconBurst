@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: 0xJuaNc4
+# Author: ju4ncaa
 
 # ANSI color palette
 GREEN="\e[1;92m"
