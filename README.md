@@ -6,34 +6,43 @@
 
 <br>
 
-Bash script that automates the Beacon Flooding attack on WiFi networks. The attack is carried out using the mdk3 tool and is implemented with the aim of flooding the attacked network with fake Beacon frames, causing outages and possible denial of service (DoS) effects.
+Script en Bash que automatiza el ataque Beacon Flooding a redes WiFi. El ataque se lleva a cabo utilizando la herramienta mdk3 y se implementa con el objetivo de inundar la red atacada con tramas Beacon falsas, provocando cortes y posibles efectos de denegación de servicio (DoS).
 
-## Requirements
+## Requisitos
 
-1. Root permissions for the execution of the script.
-2. Network card in monitor mode.
-3. Necessary tools installed: (iw, airmon-ng, airodump-ng, mdk3, xterm).
+1. Permisos de root para la ejecución del script.
+2. Tarjeta de red en modo monitor.
+3. Herramientas necesarias instaladas: (iw, airmon-ng, airodump-ng, mdk3, xterm).
 
 
 ## Uso
 
-1. Clone the repository or otherwise download the beaconburst.sh script.
+1. Clona el repositorio o descarga el script beaconburst.sh.
+
 ```
 git clone https://github.com/0xJuaNc4/BeaconBurst
 ```
-2. Change to the script directory.
+
+2. Cambia al directorio del script.
+
 ```
 cd BeaconBurst
 ```
-3. Set execution permissions to the script.
+
+3. Establece permisos de ejecución para el script.
+
 ```
 chmod +x beaconburst.sh
 ```
-4. Before running the script, make sure that your wireless network interface is set to monitor mode.
+
+4. Antes de ejecutar el script, asegúrate de que tu interfaz de red inalámbrica está configurada en modo monitor.
+
 ```
 airmon-ng start <interfaz>
 ```
-5. Execute the script with root permissions.
+
+5. Ejecuta el script con permisos de root.
+
 ```
 sudo ./beaconburst.sh
 ```
