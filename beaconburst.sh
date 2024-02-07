@@ -45,6 +45,7 @@ check_tools(){
         else
             echo -e "$tool....${RED}no${RESET}"
             echo -e "\n${RED}[!]${RESET} La herramienta ${YELLOW}$tool${RESET} no está instalada en el sistema, debes instalarla para continuar."
+	    exit 1
         fi
         sleep 0.5
     done
