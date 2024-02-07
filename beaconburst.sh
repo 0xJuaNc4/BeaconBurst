@@ -20,7 +20,7 @@ function ctrl_c(){
     fi
     rm -f output-*.csv ssid_dict.txt &> /dev/null
     service wpa_supplicant start &> /dev/null
-    exit 0
+    exit 0; tput cnorm
 }
 
 # Banner
@@ -37,6 +37,7 @@ banner(){
 
 # Comprueba si las herramientas necesarias están instaladas
 check_tools(){
+    tput civis; stty -echo
     tools=("iw" "airmon-ng" "airodump-ng" "mdk3" "xterm")
     echo -e "\n${CYAN}[*]${RESET} Comprobando herramientas necesarias...\n"
     for tool in "${tools[@]}"; do
@@ -48,11 +49,12 @@ check_tools(){
 	    exit 1
         fi
         sleep 0.5
-    done
+    done; tput cnorm; stty echo
 }
 
 # Listar interfaces de red disponibles
 select_interface(){
+    tput civis; stty -echo
     echo -e "\n${CYAN}[*]${RESET} Empezando...\n"
     sleep 1
     echo -e "\n${CYAN}[*]${RESET} Interfaces de red inalámbrica disponibles:\n"
@@ -62,8 +64,10 @@ select_interface(){
         echo -e "${YELLOW}${counter}.${RESET} ${interface}"
         ((counter++))
     done
+    tput cnorm; stty echo
     echo -n -e "\n${CYAN}Seleccione la interfaz con la que desea trabajar >${RESET} "
     read interface
+    tput civis; stty -echo
     if ! ifconfig "${interface}" &> /dev/null; then
         echo -e "\n\n${RED}[!]${RESET} La interfaz ${YELLOW}$interface${RESET} no es válida.\n"
         exit 1
@@ -98,8 +102,10 @@ show_table(){
 
 # Escaneo de redes WIFI
 net_scan(){
+    stty echo; tput cnorm
     echo -n -e "\n${CYAN}¿Desea continuar con el escaneo de la red? ${YELLOW}(y/n)${RESET} >${RESET} "
     read option_choose
+    tput civis; stty -echo
     if [[ "${option_choose,,}" == "y" ]]; then
         echo -e "\n\n${GREEN}[*]${RESET} Iniciando el escaneo de red...\n"
         sleep 1
@@ -110,8 +116,10 @@ net_scan(){
         xterm_pid=$!
         wait "$xterm_pid"
         show_table
+        tput cnorm; stty echo
         echo -n -e "\n${CYAN}Escribe el nombre de la red WiFi que deseas atacar >${RESET} "
         read selected_essid
+        tput civis; stty -echo
         if grep -q "$selected_essid" output-01.csv; then
             echo -e "\n${GREEN}[*]${RESET} Se ha seleccionado la red ${YELLOW}$selected_essid${RESET}.${RESET}\n"
             sleep 0.5
