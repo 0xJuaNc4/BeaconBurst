@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Autor: 0xju4ncaa
+# Author @ju4ncaa (Juan Carlos Rodríguez)
 
 # Paleta de colores ANSI
 GREEN="\e[1;92m"
